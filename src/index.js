@@ -1,23 +1,9 @@
-const 
-    express = require('express'),
-    mongoose = require('mongoose');
+require('dotenv').config();
 
+const express = require('express');
 const app = express();
 
-const mongoUri = 'mongodb+srv://admin:<password>@cluster0-yajqz.gcp.mongodb.net/test?retryWrites=true&w=majority';
-
-mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useCreateIndex: true
-});
-
-mongoose.connection.on('connected', () => {
-    console.log('Connected to mongo instance');
-});
-
-mongoose.connection.on('error', (err) => {
-    console.error('Error connecting monog', err);
-});
+require('../db');
 
 app.get('/', (req, res) => {
     res.send('Hi there!')
