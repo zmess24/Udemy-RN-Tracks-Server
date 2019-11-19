@@ -1,12 +1,20 @@
 require('dotenv').config();
+require('./models/User');
 
-const express = require('express');
-const app = express();
+const 
+    express = require('express'),
+    bodyParser = require('body-parser'),
+    authRoutes = require('./routes/authRoutes'),
+    requireAuth = require('./middlewares/requireAuth'),
+    app = express();
 
-require('../db');
+app.use(bodyParser.json());
+app.use(authRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Hi there!')
+require('./db');
+
+app.get('/', requireAuth, (req, res) => {
+    res.send(`Hi there ${req.user.email}!`)
 });
 
 app.listen(3000, () => {
