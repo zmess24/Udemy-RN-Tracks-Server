@@ -1,15 +1,21 @@
+// ENV initialization
 require('dotenv').config();
+
+// Mongoose Models
 require('./models/User');
+require('./models/Track');
 
 const 
     express = require('express'),
     bodyParser = require('body-parser'),
     authRoutes = require('./routes/authRoutes'),
+    trackRoutes = require('./routes/trackRoutes'),
     requireAuth = require('./middlewares/requireAuth'),
     app = express();
 
 app.use(bodyParser.json());
 app.use(authRoutes);
+app.use(trackRoutes);
 
 require('./db');
 
